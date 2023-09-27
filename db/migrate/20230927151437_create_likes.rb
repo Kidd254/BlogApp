@@ -11,6 +11,6 @@ class CreateLikes < ActiveRecord::Migration[7.0]
 
     add_index :likes, :user_id
     add_index :likes, :post_id
-    end
   end
-end
+end # END: abpxx6d04wxr
+  end

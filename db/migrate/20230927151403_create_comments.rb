@@ -14,4 +14,4 @@ class CreateComments < ActiveRecord::Migration[7.0]
       add_index :comments, :post_id
     end
   end
-end
+  
