@@ -18,9 +18,10 @@ class CommentTest < ActiveSupport::TestCase
     assert_not comment.valid?
     assert_includes comment.errors[:content], 'can\'t be blank'
   end
-
+  # rubocop:disable Lint/UselessAssignment
   test 'user_id and post_id combination should be unique' do
     existing_comment = Comment.create(user_id: 1, post_id: 1, content: 'Test comment 1')
+    # rubocop:enable Lint/UselessAssignment
     duplicate_comment = Comment.new(user_id: 1, post_id: 1, content: 'Test comment 2')
     assert_not duplicate_comment.valid?
     assert_includes duplicate_comment.errors[:user_id], 'has already been taken'

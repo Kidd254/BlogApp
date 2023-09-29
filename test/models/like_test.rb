@@ -1,5 +1,6 @@
 require 'test_helper'
 
+# rubocop:disable Lint/UselessAssignment
 class LikeTest < ActiveSupport::TestCase
   test 'user_id must be present' do
     like = Like.new(user_id: nil, post_id: 1)
@@ -26,3 +27,4 @@ class LikeTest < ActiveSupport::TestCase
     assert_equal 1, post.reload.likes_counter
   end
 end
+# rubocop:enable Lint/UselessAssignment
