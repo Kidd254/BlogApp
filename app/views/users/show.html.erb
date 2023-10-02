@@ -1,2 +1,17 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Profile</title>
+</head>
+<body>
+  <h1>User Profile</h1>
+  
+ <% if @user %>
+  <p><strong>Username:</strong> <%= @user.name %></p>
+  <!-- Add more user details as needed -->
+<% else %>
+  <p>User not found</p> <!-- Display an error message -->
+<% end %>
+</body>
+</html>
+
