@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     @user = User.find_by(name: params[:name])
     if @user.nil?
       flash[:error] = "User not found"
-      redirect_to '/' 
+      redirect_to '/'
     end
   end
 end
