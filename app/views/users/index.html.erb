@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>All Users</title>
+</head>
+<body>
+  <h1>All Users</h1>
+  
+  <ul>
+    <% @users.each do |user| %>
+    <li>
+      <% if user.name.present? %>
+        <%= link_to user.name, user_path(user.name) %>
+      <% else %>
+        User name not available
+      <% end %>
+    </li>
+  <% end %>
+  </ul>
+</body>
+</html>
