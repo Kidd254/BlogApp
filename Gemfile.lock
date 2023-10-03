@@ -86,9 +86,6 @@ GEM
     concurrent-ruby (1.2.2)
     crass (1.0.6)
     date (3.3.3)
-    debug (1.8.0)
-      irb (>= 1.5.0)
-      reline (>= 0.3.1)
     diff-lcs (1.5.0)
     erubi (1.12.0)
     factory_bot (6.2.1)
@@ -103,10 +100,6 @@ GEM
     importmap-rails (1.2.1)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
-    io-console (0.6.0)
-    irb (1.8.1)
-      rdoc
-      reline (>= 0.3.8)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -143,8 +136,6 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.4-x64-mingw-ucrt)
-    psych (5.1.0)
-      stringio
     public_suffix (5.0.3)
     puma (5.6.7)
       nio4r (~> 2.0)
@@ -166,6 +157,10 @@ GEM
       activesupport (= 7.0.8)
       bundler (>= 1.15.0)
       railties (= 7.0.8)
+    rails-controller-testing (1.0.5)
+      actionpack (>= 5.0.1.rc1)
+      actionview (>= 5.0.1.rc1)
+      activesupport (>= 5.0.1.rc1)
     rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
@@ -182,11 +177,7 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.0.6)
-    rdoc (6.5.0)
-      psych (>= 4.0.0)
     regexp_parser (2.8.1)
-    reline (0.3.8)
-      io-console (~> 0.5)
     rexml (3.2.6)
     rspec-core (3.12.2)
       rspec-support (~> 3.12.0)
@@ -234,7 +225,6 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (1.2.2)
       railties (>= 6.0.0)
-    stringio (3.0.8)
     thor (1.2.2)
     timeout (0.4.0)
     turbo-rails (1.4.0)
@@ -265,14 +255,14 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   capybara
-  debug
   factory_bot_rails
   importmap-rails
   jbuilder
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.8)
-  rspec-rails
+  rails-controller-testing
+  rspec-rails (~> 6.0.0)
   rubocop (>= 1.0, < 2.0)
   selenium-webdriver
   sprockets-rails
