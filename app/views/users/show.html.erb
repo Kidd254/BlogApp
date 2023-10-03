@@ -8,7 +8,11 @@
   
  <% if @user %>
   <p><strong>Username:</strong> <%= @user.name %></p>
+  <% if @user.photo.present? %>
   <p><strong>Photo:</strong> <%= image_tag @user.photo, alt: 'User Photo' %></p>
+<% else %>
+  <p><strong>Photo:</strong> No photo available</p>
+<% end %>
       <p><strong>Bio:</strong> <%= @user.bio %></p>
 <% else %>
   <p>User not found</p> <!-- Display an error message -->
