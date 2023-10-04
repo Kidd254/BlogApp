@@ -6,18 +6,36 @@
 <body>
   <h1>User Profile</h1>
   
- <% if @user %>
-  <p><strong>Username:</strong> <%= @user.name %></p>
-  <% if @user.photo.present? %>
-  <p><strong>Photo:</strong> <%= image_tag @user.photo, alt: 'User Photo' %></p>
-<% else %>
-  <p><strong>Photo:</strong> No photo available</p>
-<% end %>
-      <p><strong>Bio:</strong> <%= @user.bio %></p>
-<% else %>
-  <p>User not found</p> <!-- Display an error message -->
-<% end %>
+  <div>
+    <h2><%= @user.name %></h2>
+    <% if @user.photo.present? %>
+      <% if @user.photo =~ URI::DEFAULT_PARSER.regexp[:ABS_URI] %>
+        <img src="<%= @user.photo %>" alt="<%= @user.name%>">
+      <% else %>
+        <!-- Invalid photo URL, display a default image or error message -->
+        <img src="/default-user-photo.jpg" alt="Default User Photo">
+        <p>Invalid photo URL</p>
+      <% end %>
+    <% else %>
+      <!-- Default placeholder image if no photo available -->
+      <img src="/default-user-photo.jpg" alt="Default User Photo">
+    <% end %>
 
+    <p><strong>Bio:</strong> <%= @user.bio || 'No bio available' %></p>
+
+    <p>Number of Posts: <%= @user.posts.count %></p>
+    
+    <h3>List of Posts:</h3>
+    <ul>
+      <% @user.posts.each do |post| %>
+        <li>
+          <%= link_to post.title, user_post_path(@user.name, post.id) %> - 
+          Comments: <%= post.comments.count %> -
+          Likes: <%= post.likes.count %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </body>
 </html>
 

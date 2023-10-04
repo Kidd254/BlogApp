@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>All Posts by User</title>
+  <title>All Posts</title>
 </head>
 <body>
-  <h1>All Posts by User</h1>
+  <h1>All Posts</h1>
   
-  <ul>
-    <% @posts.each do |post| %>
-    <li>
-      <% if post.author %>
-        <%= link_to post.title, user_post_path(user_name: post.author.name, id: post.id) %>
-      <% else %>
-        <!-- Handle the case where author is nil (e.g., display "Unknown author") -->
-        Unknown author: <%= post.title %>
-      <% end %>
-    </li>
+  <% @users.each do |user| %>
+    <div>
+      <h2><%= user.name %></h2>
+      <p>Number of Posts: <%= user.posts.count %></p>
+      
+      <h3>List of Posts:</h3>
+      <ul>
+        <% user.posts.each do |post| %>
+          <li>
+            <strong>Title:</strong> <%= link_to post.title, user_post_path(user.name, post.id) %><br>
+            <strong>Number of Comments:</strong> <%= post.comments.count %><br>
+            <strong>Likes:</strong> <%= post.likes.count %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <hr>
   <% end %>
-  </ul>
 </body>
 </html>
-

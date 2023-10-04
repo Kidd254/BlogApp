@@ -1,0 +1,6 @@
+<h3>Comments:</h3>
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li><%= comment.user.name %> - <%= comment.text %></li>
+  <% end %>
+</ul>
