@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     # rubocop:disable Style/GuardClause
     if @user.nil?
       flash[:error] = 'User not found'
-      redirect_to '/'
+      redirect_to users_path
     end
     # rubocop:enable Style/GuardClause
   end
