@@ -10,27 +10,6 @@
   
   <% @users.each do |user| %>
     <div class="container mt-4">
-      <div class="border border-primary p-3">
-        <div class="d-flex align-items-center"> <!-- Add d-flex and align-items-center -->
-          <div class="col-md-2">
-            <!-- User's photo -->
-            <% if user.photo.present? && user.photo =~ URI::DEFAULT_PARSER.regexp[:ABS_URI] %>
-              <img src="<%= user.photo %>" alt="<%= user.name %>" class="img-fluid rounded-circle">
-            <% else %>
-              <!-- Display a default image if no valid photo URL is available -->
-              <img src="/default-user-photo.jpg" alt="Default User Photo" class="img-fluid rounded-circle">
-            <% end %>
-          </div>
-          <div class="container d-flex justify-content-between">
-            <div class='row'>
-            <h2><%= user.name %></h2>
-            </div>
-            <div class=''>
-            <p>Number of Posts: <%= user.posts.count %></p>
-          </div>
-        </div>
-      </div>
-      </div>
       <% user.posts.each do |post| %>
         <div class="border border-primary p-3 mt-3">
           <strong>Title:</strong> <%= link_to post.title, user_post_path(user.name, post.id) %><br>
