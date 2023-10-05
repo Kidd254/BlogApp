@@ -2,10 +2,15 @@
 <html>
 <head>
   <title>All Users</title>
+  <!-- Include custom stylesheets for users -->
+<%= stylesheet_link_tag 'application', 'users' %>
+
 </head>
 <body>
+<div>
   <h1>All Users</h1>
-  
+  <div>
+  <div>
   <ul>
     <% @users.each do |user| %>
       <li>
@@ -16,7 +21,9 @@
           <img src="/default-user-photo.jpg" alt="Default User Photo">
           <p>Invalid or missing photo URL</p>
         <% end %>
-        <!-- Display the user's name -->
+        </div>
+
+       <div>
         <p>
           <% if user.name.present? %>
             <%= link_to user.name, user_path(user.name) %>
@@ -33,5 +40,8 @@
       </li>
     <% end %>
   </ul>
+  </div>
+  </div>
+  </div>
 </body>
 </html>
