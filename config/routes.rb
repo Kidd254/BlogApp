@@ -5,4 +5,5 @@ Rails.application.routes.draw do
     resources :comments, only: [:index, :show, :create, :update, :destroy]
 resources :likes, only: [:create, :destroy]
   end
+  get 'users/:user_id/posts/:id', to: 'posts#show', as: 'post', on: :member
 end

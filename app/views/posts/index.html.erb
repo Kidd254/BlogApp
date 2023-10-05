@@ -12,7 +12,7 @@
     <div class="container mt-4">
       <% user.posts.each do |post| %>
         <div class="border border-primary p-3 mt-3">
-          <strong>Title:</strong> <%= link_to post.title, user_post_path(user.name, post.id) %><br>
+          <strong>Title:</strong> <%= link_to post.title, user_post_path(user_id: post.author.name, id: post.id) %><br>
           <strong>Number of Comments:</strong> <%= post.comments.count %><br>
           <strong>Likes:</strong> <%= post.likes.count %>
         </div>

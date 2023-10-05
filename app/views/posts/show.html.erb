@@ -2,7 +2,6 @@
 <html>
 <head>
   <title>Post Details</title>
-
 </head>
 <body>
   <h1>Post Details</h1>
@@ -19,12 +18,10 @@
   <ul>
     <% @post.comments.each do |comment| %>
       <li>
-       <p><strong>Username:</strong> <%= comment.user.name %></p>
+        <p><strong>Username:</strong> <%= comment.user.name %></p>
         <%= comment.text %>
-       
       </li>
     <% end %>
   </ul>
 </body>
 </html>
-
