@@ -6,22 +6,32 @@
 <body>
   <h1>All Users</h1>
   
-<ul>
-  <% @users.each do |user| %>
-  <li>
-    <% if user.name.present? %>
-      <%= link_to user.name, user_path(user.name) %>
-      <% post_count = user.posts.count %>
-      <% if post_count > 0 %> Number of posts:
-        <%= post_count %>
-      <% else %>
-        (No posts)
-      <% end %>
-    <% else %>
-      User name not available
+  <ul>
+    <% @users.each do |user| %>
+      <li>
+        <% if user.photo.present? && user.photo =~ URI::DEFAULT_PARSER.regexp[:ABS_URI] %>
+          <img src="<%= user.photo %>" alt="<%= user.name %>">
+        <% else %>
+          <!-- Display a default image if no valid photo URL is available -->
+          <img src="/default-user-photo.jpg" alt="Default User Photo">
+          <p>Invalid or missing photo URL</p>
+        <% end %>
+        <!-- Display the user's name -->
+        <p>
+          <% if user.name.present? %>
+            <%= link_to user.name, user_path(user.name) %>
+          <% else %>
+            User name not available
+          <% end %>
+        </p>
+        <!-- Display the number of posts -->
+        <p>
+          Number of posts:
+          <% post_count = user.posts.count %>
+          <%= post_count > 0 ? post_count : "(No posts)" %>
+        </p>
+      </li>
     <% end %>
-  </li>
-  <% end %>
-</ul>
+  </ul>
 </body>
 </html>
