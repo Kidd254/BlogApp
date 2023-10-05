@@ -19,6 +19,15 @@
             <strong>Number of Comments:</strong> <%= post.comments.count %><br>
             <strong>Likes:</strong> <%= post.likes.count %>
           </li>
+          
+          <ul>
+            <% post.comments.each do |comment| %>
+              <li>
+                <p><strong>Username:</strong> <%= comment.user.name %></p>
+                <%= comment.text %>
+              </li>
+            <% end %>
+          </ul>
         <% end %>
       </ul>
     </div>
