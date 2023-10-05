@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(name: params[:name])
+    @posts = @user.posts
     # rubocop:disable Style/GuardClause
     if @user.nil?
       flash[:error] = 'User not found'
