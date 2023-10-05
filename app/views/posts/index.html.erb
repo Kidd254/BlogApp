@@ -2,37 +2,54 @@
 <html>
 <head>
   <title>All Posts</title>
-  <!-- Include custom stylesheets for posts -->
-<%= stylesheet_link_tag 'application', 'posts' %>
-
+  <!-- Include Bootstrap CSS -->
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
 </head>
 <body>
   <h1>All Posts</h1>
   
   <% @users.each do |user| %>
-    <div>
-      <h2><%= user.name %></h2>
-      <p>Number of Posts: <%= user.posts.count %></p>
-      
-      <h3>List of Posts:</h3>
-      <ul>
-        <% user.posts.each do |post| %>
-          <li>
-            <strong>Title:</strong> <%= link_to post.title, user_post_path(user.name, post.id) %><br>
-            <strong>Number of Comments:</strong> <%= post.comments.count %><br>
-            <strong>Likes:</strong> <%= post.likes.count %>
-          </li>
-          
+    <div class="container mt-4">
+      <div class="border border-primary p-3">
+        <div class="d-flex align-items-center"> <!-- Add d-flex and align-items-center -->
+          <div class="col-md-2">
+            <!-- User's photo -->
+            <% if user.photo.present? && user.photo =~ URI::DEFAULT_PARSER.regexp[:ABS_URI] %>
+              <img src="<%= user.photo %>" alt="<%= user.name %>" class="img-fluid rounded-circle">
+            <% else %>
+              <!-- Display a default image if no valid photo URL is available -->
+              <img src="/default-user-photo.jpg" alt="Default User Photo" class="img-fluid rounded-circle">
+            <% end %>
+          </div>
+          <div class="container d-flex justify-content-between">
+            <div class='row'>
+            <h2><%= user.name %></h2>
+            </div>
+            <div class=''>
+            <p>Number of Posts: <%= user.posts.count %></p>
+          </div>
+        </div>
+      </div>
+      </div>
+      <% user.posts.each do |post| %>
+        <div class="border border-primary p-3 mt-3">
+          <strong>Title:</strong> <%= link_to post.title, user_post_path(user.name, post.id) %><br>
+          <strong>Number of Comments:</strong> <%= post.comments.count %><br>
+          <strong>Likes:</strong> <%= post.likes.count %>
+        </div>
+        
+        <div class="border border-primary p-3 mt-3">
+          <h4>Comments:</h4>
           <ul>
             <% post.comments.each do |comment| %>
               <li>
-                <p><strong>Username:</strong> <%= comment.user.name %></p>
+                <strong> <%= comment.user.name %></strong><br>
                 <%= comment.text %>
               </li>
             <% end %>
           </ul>
-        <% end %>
-      </ul>
+        </div>
+      <% end %>
     </div>
     <hr>
   <% end %>
