@@ -14,7 +14,18 @@
   <p><strong>Title:</strong> <%= @post.title %></p>
   <p><strong>Text:</strong> <%= @post.text %></p>
 
-  <h3>Comments:</h3>
+  <!-- Like button form -->
+  <%= form_with(model: @like, url: user_post_likes_path(@post.author, @post), method: :post) do |form| %>
+    <%= form.submit 'Like' %>
+  <% end %>
+  <h3>Comments</h3>
+   <!-- Comment form -->
+  <%= form_with(model: Comment.new, url: user_post_comments_path(@post.author, @post), method: :post) do |form| %>
+    <div class="field mb-2">
+      <%= form.text_area :text, rows: 3 %>
+    </div>
+    <%= form.submit 'Add Comment' %>
+  <% end %>
   <ul>
     <% @post.comments.each do |comment| %>
       <li>
@@ -23,5 +34,24 @@
       </li>
     <% end %>
   </ul>
+
+  <!-- New Post form -->
+  <%= form_with(model: Post.new, url: user_posts_path(@post.author), method: :post) do |form| %>
+    <div class="field col-md-3">
+        <h2>Add a Post</h2>
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+    </div>
+    <div class="field">
+
+    <div class="col-md-3">
+      <%= form.label :content %>
+      </div>
+      <%= form.text_area :text, rows: 8 %>
+    </div>
+    <div class="mt-2">
+    <%= form.submit 'Create Post' %>
+    </div>
+  <% end %>
 </body>
 </html>
