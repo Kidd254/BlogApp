@@ -2,26 +2,30 @@
 <html>
 <head>
   <title>New Post</title>
+  <!-- Include Bootstrap CSS -->
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
 </head>
 <body>
-  <h1>New Post</h1>
-  
-  <%= form_with(model: @post, url: user_posts_path(current_user), method: :post) do |form| %>
-    <div class="field">
-      <%= form.label :title %>
-      <%= form.text_field :title %>
-    </div>
-    <div class="field">
-      <%= form.label :text %>
-      <%= form.text_area :text, rows: 5 %>
-    </div>
-    <div class="field">
-      <%= form.label :user_name %>
-      <%= form.text_field :user_name %>
-    </div>
-    <%= form.submit 'Create Post' %>
-  <% end %>
+  <div class="container mt-5">
+    <h1>New Post</h1>
 
-  <%= link_to 'Back to Posts', user_posts_path(current_user) %>
+    <%= form_with(model: @post, url: user_posts_path(current_user), method: :post, class: "mt-4") do |form| %>
+      <div class="form-group">
+        <%= form.label :title, class: "font-weight-bold" %>
+        <%= form.text_field :title, class: "form-control", placeholder: "Enter title" %>
+      </div>
+      <div class="form-group">
+        <%= form.label :text, class: "font-weight-bold" %>
+        <%= form.text_area :text, class: "form-control", rows: 5, placeholder: "Enter text" %>
+      </div>
+      <div class="form-group">
+        <%= form.label :user_name, class: "font-weight-bold" %>
+        <%= form.text_field :user_name, class: "form-control", placeholder: "Enter your name" %>
+      </div>
+      <%= form.submit 'Create Post', class: "btn btn-primary" %>
+    <% end %>
+
+    <%= link_to 'Back to Posts', user_posts_path(current_user), class: "btn btn-secondary mt-3" %>
+  </div>
 </body>
 </html>
