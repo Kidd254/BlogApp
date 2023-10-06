@@ -1,31 +1,21 @@
 class LikesController < ApplicationController
   class LikesController < ApplicationController
-    before_action :authenticate_user! # Add authentication if needed
+    before_action :authenticate_user!
 
-    # Create a new like for a resource (e.g., a post)
     def create
-      @like = Like.new(like_params)
-      @like.user = current_user # Assign the current user as the one who liked
+      @like = @post.likes.build(user: @current_user)
 
       if @like.save
-        redirect_to @like.liked_item, notice: 'Like was successfully created.'
+        redirect_to @post, notice: 'Liked the post!'
       else
-        render :new
+        redirect_to @post, alert: 'Unable to like the post.'
       end
-    end
-
-    # Remove a like for a resource
-    def destroy
-      @like = Like.find(params[:id])
-      @like.destroy
-
-      redirect_to @like.liked_item, notice: 'Like was successfully removed.'
     end
 
     private
 
-    def like_params
-      params.require(:like).permit(:liked_item_id, :liked_item_type) # Adjust permitted parameters as needed
+    def find_post
+      @post = Post.find(params[:post_id])
     end
   end
 end
