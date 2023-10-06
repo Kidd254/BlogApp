@@ -7,9 +7,9 @@ class Post < ApplicationRecord
 
   def update_user_posts_counter
     new_posts_counter = author.posts.count
-    if author.posts_counter != new_posts_counter
-      author.update(posts_counter: new_posts_counter)
-    end
+    return unless author.posts_counter != new_posts_counter
+
+    author.update(posts_counter: new_posts_counter)
   end
 
   def recent_comments

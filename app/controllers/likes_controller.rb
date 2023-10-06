@@ -6,11 +6,11 @@ class LikesController < ApplicationController
 
     if like.persisted?
       flash[:notice] = 'Liked the post!'
-      redirect_to user_post_path(@post.author, @post) # Use user_post_path with the author and post as arguments
     else
       flash[:alert] = 'Unable to like the post.'
-      redirect_to user_post_path(@post.author, @post) # Use user_post_path with the author and post as arguments
     end
+
+    redirect_to user_post_path(@post.author, @post) # Use user_post_path with the author and post as arguments
   end
 
   private
