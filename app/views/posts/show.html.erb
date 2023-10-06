@@ -8,11 +8,20 @@
   
   <h2><%= @post.title %></h2>
   <p><strong>Author:</strong> <%= @post.author.name %></p>
-  
+  <p><strong>Likes:</strong> <%= @post.likes.count %></p>
+  <p><strong>Comments:</strong> <%= @post.comments.count %></p>
+
   <p><strong>Title:</strong> <%= @post.title %></p>
   <p><strong>Text:</strong> <%= @post.text %></p>
-  <p><strong>Likes:</strong> <%= @post.likes_counter %></p>
-  <p><strong>Comments:</strong> <%= @post.comments_counter %></p>
-  
+
+  <h3>Comments:</h3>
+  <ul>
+    <% @post.comments.each do |comment| %>
+      <li>
+        <p><strong>Username:</strong> <%= comment.user.name %></p>
+        <%= comment.text %>
+      </li>
+    <% end %>
+  </ul>
 </body>
 </html>

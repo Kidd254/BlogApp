@@ -2,22 +2,52 @@
 <html>
 <head>
   <title>User Profile</title>
+  <!-- Include Bootstrap CSS -->
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
 </head>
 <body>
   <h1>User Profile</h1>
   
- <% if @user %>
-  <p><strong>Username:</strong> <%= @user.name %></p>
-  <% if @user.photo.present? %>
-  <p><strong>Photo:</strong> <%= image_tag @user.photo, alt: 'User Photo' %></p>
-<% else %>
-  <p><strong>Photo:</strong> No photo available</p>
-<% end %>
-      <p><strong>Bio:</strong> <%= @user.bio %></p>
-<% else %>
-  <p>User not found</p> <!-- Display an error message -->
-<% end %>
-
+  <div class="container mt-4">
+    <!-- User details go here -->
+    <div class="row">
+      <!-- Photo with its own border -->
+      <div class="col-md-2">
+        <div class="border">
+          <% if @user.photo.present? && @user.photo =~ URI::DEFAULT_PARSER.regexp[:ABS_URI] %>
+            <img src="<%= @user.photo %>" alt="<%= @user.name %>" class="h-150 w-100 m-3">
+          <% else %>
+            <!-- Display a default image if no valid photo URL is available -->
+            <img src="/default-user-photo.jpg" alt="Default User Photo" class="card-img-top h-200 w-100">
+          <% end %>
+        </div>
+      </div>
+      <!-- Username and Number of Comments with a single border -->
+      <div class="col-md-8">
+        <div class="border border-primary">
+          <h2><%= @user.name %></h2>
+          <p>Number of Posts: <%= @user.posts.count %></p>
+        </div>
+      </div>
+    </div>
+    <!-- Bio with its own border -->
+    <div class="border border-primary p-3 mt-3">
+      <p><strong>Bio:</strong> <%= @user.bio || 'No bio available' %></p>
+    </div>
+    <!-- List of Posts with a border -->
+    <div class="border border-primary p-3 mt-3">
+      <h3>List of Posts:</h3>
+      <ul>
+        <% @user.posts.each do |post| %>
+          <li>
+            <%= link_to post.title, user_post_path(@user.name, post.id) %> - 
+            Comments: <%= post.comments.count %> -
+            Likes: <%= post.likes.count %>
+          </li>
+        <% end %>
+      </ul>
+      <%= link_to "See all Posts", user_posts_path(@user), class: "btn btn-primary" %>
+    </div>
+  </div>
 </body>
 </html>
-
