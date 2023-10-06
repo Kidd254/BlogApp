@@ -1,29 +1,31 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user! # Add authentication if needed
-
-  # Display a list of comments (e.g., for a specific post)
-  def index
-    @comments = Comment.all # Fetch comments for a post
-  end
-
-  # Display a single comment
-  def show
-    @comment = Comment.find(params[:id])
+  def new
+    @post = find_post
+    @user = @post.author
+    @comment = @post.comments.new
   end
 
   def create
-    @comment = @post.comments.build(comment_params.merge(user: @current_user))
+    @post = find_post
+    @new_comment = @post.comments.build(comment_params)
+    @new_comment.user = current_user
 
-    if @comment.save
-      redirect_to @post, notice: 'Comment was successfully created.'
+    if @new_comment.save
+      flash[:success] = 'The comment of the post was created successfully!'
+      redirect_to user_post_path(@post.author, @post)
     else
-      render 'posts/show' # or wherever you want to redirect on failure
+      render 'new'
     end
   end
 
   private
 
+  def comment_params
+    params.require(:comment).permit(:text)
+  end
+
   def find_post
     @post = Post.find(params[:post_id])
   end
 end
+

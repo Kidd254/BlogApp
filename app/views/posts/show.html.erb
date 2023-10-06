@@ -24,6 +24,10 @@
     <div class="field mb-2">
       <%= form.text_area :text, rows: 3 %>
     </div>
+    <div class="field col-md-3">
+    <%= form.label :user_name %>
+    <%= form.text_field :user_name %>
+  </div>
     <%= form.submit 'Add Comment' %>
   <% end %>
   <ul>
@@ -35,23 +39,6 @@
     <% end %>
   </ul>
 
-  <!-- New Post form -->
-  <%= form_with(model: Post.new, url: user_posts_path(@post.author), method: :post) do |form| %>
-    <div class="field col-md-3">
-        <h2>Add a Post</h2>
-      <%= form.label :title %>
-      <%= form.text_field :title %>
-    </div>
-    <div class="field">
-
-    <div class="col-md-3">
-      <%= form.label :content %>
-      </div>
-      <%= form.text_area :text, rows: 8 %>
-    </div>
-    <div class="mt-2">
-    <%= form.submit 'Create Post' %>
-    </div>
-  <% end %>
+  
 </body>
 </html>

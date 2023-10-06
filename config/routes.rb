@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'users#index'
 
   resources :users, param: :name, only: [:index, :show] do
-    resources :posts, only: [:index, :show] do
+    resources :posts, only: [:index, :show, :new, :create] do
       resources :comments, only: [:create, :update, :destroy]
 
       # Add routes for liking and unliking a post
