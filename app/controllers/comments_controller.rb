@@ -11,40 +11,19 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
   end
 
-  # Create a new comment
   def create
-    @comment = Comment.new(comment_params)
-    @comment.user = current_user # Assign the current user as the comment author
+    @comment = @post.comments.build(comment_params.merge(user: @current_user))
 
     if @comment.save
-      redirect_to @comment, notice: 'Comment was successfully created.'
+      redirect_to @post, notice: 'Comment was successfully created.'
     else
-      render :new
+      render 'posts/show' # or wherever you want to redirect on failure
     end
-  end
-
-  # Update an existing comment
-  def update
-    @comment = Comment.find(params[:id])
-
-    if @comment.update(comment_params)
-      redirect_to @comment, notice: 'Comment was successfully updated.'
-    else
-      render :edit
-    end
-  end
-
-  # Delete a comment
-  def destroy
-    @comment = Comment.find(params[:id])
-    @comment.destroy
-
-    redirect_to comments_url, notice: 'Comment was successfully destroyed.'
   end
 
   private
 
-  def comment_params
-    params.require(:comment).permit(:text, :post_id) # Adjust permitted parameters as needed
+  def find_post
+    @post = Post.find(params[:post_id])
   end
 end
