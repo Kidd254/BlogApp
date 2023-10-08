@@ -1,31 +1,24 @@
 class LikesController < ApplicationController
-  class LikesController < ApplicationController
-    before_action :authenticate_user! # Add authentication if needed
+  before_action :find_post, only: :create
 
-    # Create a new like for a resource (e.g., a post)
-    def create
-      @like = Like.new(like_params)
-      @like.user = current_user # Assign the current user as the one who liked
+  def create
+    like = @post.likes.create(user: current_user)
 
-      if @like.save
-        redirect_to @like.liked_item, notice: 'Like was successfully created.'
-      else
-        render :new
-      end
+    if like.persisted?
+      flash[:notice] = 'Liked the post!'
+    else
+      flash[:alert] = 'Unable to like the post.'
     end
 
-    # Remove a like for a resource
-    def destroy
-      @like = Like.find(params[:id])
-      @like.destroy
+    redirect_to user_post_path(@post.author, @post) # Use user_post_path with the author and post as arguments
+  end
 
-      redirect_to @like.liked_item, notice: 'Like was successfully removed.'
-    end
+  private
 
-    private
-
-    def like_params
-      params.require(:like).permit(:liked_item_id, :liked_item_type) # Adjust permitted parameters as needed
-    end
+  def find_post
+    @post = Post.find(params[:post_id])
+  rescue ActiveRecord::RecordNotFound
+    flash[:alert] = 'Post not found.'
+    redirect_to root_path
   end
 end

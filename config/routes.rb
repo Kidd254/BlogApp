@@ -1,9 +1,20 @@
 Rails.application.routes.draw do
   root 'users#index'
+
   resources :users, param: :name, only: [:index, :show] do
-    resources :posts, only: [:index, :show]
-    resources :comments, only: [:index, :show, :create, :update, :destroy]
-resources :likes, only: [:create, :destroy]
+    resources :posts, only: [:index, :show, :new, :create] do
+      resources :comments, only: [:create, :update, :destroy]
+
+      # Add routes for liking and unliking a post
+      post 'like', to: 'likes#create'
+      delete 'unlike', to: 'likes#destroy'
+
+      # Define the post route within the posts resources block
+      get 'posts/:id', to: 'posts#show', on: :member, as: 'post'
+      resources :likes, only: [:create, :destroy]
+    end
   end
-  get 'users/:user_id/posts/:id', to: 'posts#show', as: 'post', on: :member
 end
+
+
+
