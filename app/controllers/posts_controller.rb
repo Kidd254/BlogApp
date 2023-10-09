@@ -1,11 +1,11 @@
 class PostsController < ApplicationController
   def index
     @users = User.all
-    @posts = Post.all
+    @posts = Post.includes(:author, :likes).all
   end
 
   def show
-    @post = Post.find(params[:id])
+    @post = find_post_by_id
     @new_post = Post.new
   end
 
@@ -44,12 +44,8 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :text)
   end
 
-  def find_user_by_id
-    User.find(params[:user_id])
-  end
-
   def find_post_by_id
-    Post.find(params[:id])
+    Post.includes(:author, :likes).find(params[:id])
   end
 
   def like_exists?(post, user)

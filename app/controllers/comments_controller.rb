@@ -1,17 +1,16 @@
 class CommentsController < ApplicationController
   def new
-    @post = find_post
-    @user = @post.author
+    @post = find_post_with_associations
     @comment = @post.comments.new
   end
 
   def create
-    @post = find_post
+    @post = find_post_with_associations
     @new_comment = @post.comments.build(comment_params)
     @new_comment.user = current_user
 
     if @new_comment.save
-      flash[:success] = 'The comment of the post was created successfully!'
+      flash[:success] = 'The comment on the post was created successfully!'
       redirect_to user_post_path(@post.author, @post)
     else
       render 'new'
@@ -24,7 +23,8 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:text)
   end
 
-  def find_post
-    @post = Post.find(params[:post_id])
+  def find_post_with_associations
+    @post = Post.includes(:author, :comments).find(params[:post_id])
   end
 end
+
