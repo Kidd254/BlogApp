@@ -20,7 +20,6 @@ class PostsController < ApplicationController
       flash[:success] = 'The Post was created successfully!'
       redirect_to user_post_path(current_user, new_post)
     else
-      # Include new_post with errors
       @new_post = new_post
       render 'new'
     end

@@ -5,4 +5,3 @@ class Like < ApplicationRecord
   validates :user, presence: true
   validates :post, presence: true
 end
-

@@ -27,4 +27,3 @@ class CommentsController < ApplicationController
     @post = Post.includes(:author, :comments).find(params[:post_id])
   end
 end
-
