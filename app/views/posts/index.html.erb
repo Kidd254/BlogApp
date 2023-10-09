@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>All Posts</title>
-  <!-- Include Bootstrap CSS -->
+ 
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
 </head>
 <body>
@@ -26,7 +26,7 @@
                 <% if comment.user.present? %>
                   <strong><%= comment.user.name %></strong><br>
                 <% else %>
-                  <strong>Unknown User</strong><br> <!-- or any other default value -->
+                  <strong>Unknown User</strong><br> 
                 <% end %>
                 <%= comment.text %>
               </li>
@@ -38,7 +38,7 @@
     <hr>
   <% end %>
 
-  <!-- Button to Add New Post -->
+ 
   <%= link_to 'Add New Post', new_user_post_path, class: 'btn btn-primary' %>
 </body>
 </html>
