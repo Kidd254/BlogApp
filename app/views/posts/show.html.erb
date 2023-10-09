@@ -25,20 +25,18 @@
       <%= form.text_area :text, rows: 3 %>
     </div>
     <div class="field col-md-3">
-    <%= form.label :user_name %>
-    <%= form.text_field :user_name %>
-  </div>
+      <%= form.label :user_name %>
+      <%= form.text_field :user_name %>
+    </div>
     <%= form.submit 'Add Comment' %>
   <% end %>
   <ul>
-    <% @post.comments.each do |comment| %>
+    <% @post.comments.includes(:user).each do |comment| %>
       <li>
-        <p><strong>Username:</strong> <%= comment.user.name %></p>
+        <p><strong>Username:</strong> <%= comment.user.present? ? comment.user.name : 'Unknown User' %></p>
         <%= comment.text %>
       </li>
     <% end %>
   </ul>
-
-  
 </body>
 </html>

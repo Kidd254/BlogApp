@@ -3,8 +3,8 @@ class User < ApplicationRecord
   has_many :likes
   has_many :comments
 
-  def recent_posts
-    posts.order(created_at: :desc).limit(3)
+  def recent_posts_with_comments_and_likes
+    posts.includes(:comments, :likes).order(created_at: :desc).limit(3)
   end
 
   validates :name, presence: true

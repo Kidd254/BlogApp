@@ -8,7 +8,7 @@
 <body>
   <h1>All Posts</h1>
   
-  <% @users.each do |user| %>
+  <% @users.includes(posts: [:comments, :likes]).each do |user| %>
     <div class="container mt-4">
       <% user.posts.each do |post| %>
         <div class="border border-primary p-3 mt-3">
@@ -23,7 +23,11 @@
             <% recent_comments = post.comments.order(created_at: :desc).limit(5) %>
             <% recent_comments.each do |comment| %>
               <li>
-                <strong> <%= comment.user.name %></strong><br>
+                <% if comment.user.present? %>
+                  <strong><%= comment.user.name %></strong><br>
+                <% else %>
+                  <strong>Unknown User</strong><br> <!-- or any other default value -->
+                <% end %>
                 <%= comment.text %>
               </li>
             <% end %>

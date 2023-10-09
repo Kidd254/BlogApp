@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   def index
     @users = User.all
-    @posts = Post.includes(:author, :likes).all
+    @posts = Post.includes(:author, :comments, :likes).all
   end
 
   def show
