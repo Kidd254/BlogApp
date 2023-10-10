@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.feature "PostIndices", type: :feature do
   before do
-
     @user = create(:user)
     create_posts_and_data(@user)
   end
@@ -22,16 +21,16 @@ RSpec.feature "PostIndices", type: :feature do
     expect(page).to have_content('Post Body 1')
     expect(page).to have_content('Post Title 2')
     expect(page).to have_content('Post Body 2')
-    expect(page).to have_content('1 Comment') 
+    expect(page).to have_content('1 Comment')
     expect(page).to have_content('2 Likes')
   end
 
   scenario 'Viewing First Comments on a Post' do
     visit user_posts_path(@user.username)
 
- 
-    expect(page).to have_content('Comment 1') 
-    expect(page).to have_content('Comment 2') 
+
+    expect(page).to have_content('Comment 1')
+    expect(page).to have_content('Comment 2')
   end
 
   scenario 'Viewing Redirect to Post Show Page' do
@@ -43,9 +42,7 @@ RSpec.feature "PostIndices", type: :feature do
     expect(page).to have_content('Post Title 1')
   end
 
-
   def create_posts_and_data(user)
-
     post1 = create(:post, user: user, title: 'Post Title 1', body: 'Post Body 1')
     post2 = create(:post, user: user, title: 'Post Title 2', body: 'Post Body 2')
 
