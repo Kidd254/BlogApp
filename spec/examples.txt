@@ -1,14 +1,20 @@
 example_id                              | status | run_time        |
 --------------------------------------- | ------ | --------------- |
-./spec/features/user_index_spec.rb[1:1] | passed | 2.35 seconds    |
-./spec/features/user_index_spec.rb[1:2] | passed | 0.01731 seconds |
-./spec/features/user_index_spec.rb[1:3] | passed | 0.01882 seconds |
-./spec/features/user_index_spec.rb[1:4] | failed | 0.01887 seconds |
-./spec/features/user_show_spec.rb[1:1]  | failed | 0.04152 seconds |
-./spec/features/user_show_spec.rb[1:2]  | passed | 0.05203 seconds |
-./spec/features/user_show_spec.rb[1:3]  | failed | 0.05768 seconds |
-./spec/features/user_show_spec.rb[1:4]  | passed | 2.53 seconds    |
-./spec/features/user_show_spec.rb[1:5]  | failed | 0.04614 seconds |
-./spec/features/user_show_spec.rb[1:6]  | failed | 0.04759 seconds |
-./spec/features/user_show_spec.rb[1:7]  | failed | 0.04809 seconds |
-./spec/features/user_show_spec.rb[1:8]  | failed | 0.05039 seconds |
+./spec/features/post_index_spec.rb[1:1] | failed | 0.00944 seconds |
+./spec/features/post_index_spec.rb[1:2] | failed | 0.00477 seconds |
+./spec/features/post_index_spec.rb[1:3] | failed | 1.2 seconds     |
+./spec/features/post_index_spec.rb[1:4] | failed | 0.00681 seconds |
+./spec/features/post_show_spec.rb[1:1]  | failed | 0.00733 seconds |
+./spec/features/post_show_spec.rb[1:2]  | failed | 0.11241 seconds |
+./spec/features/user_index_spec.rb[1:1] | passed | 0.0386 seconds  |
+./spec/features/user_index_spec.rb[1:2] | passed | 46.24 seconds   |
+./spec/features/user_index_spec.rb[1:3] | passed | 0.04072 seconds |
+./spec/features/user_index_spec.rb[1:4] | failed | 0.08211 seconds |
+./spec/features/user_show_spec.rb[1:1]  | failed | 0.85586 seconds |
+./spec/features/user_show_spec.rb[1:2]  | passed | 0.08443 seconds |
+./spec/features/user_show_spec.rb[1:3]  | failed | 0.08671 seconds |
+./spec/features/user_show_spec.rb[1:4]  | passed | 0.08543 seconds |
+./spec/features/user_show_spec.rb[1:5]  | failed | 0.08248 seconds |
+./spec/features/user_show_spec.rb[1:6]  | failed | 0.07851 seconds |
+./spec/features/user_show_spec.rb[1:7]  | failed | 0.12863 seconds |
+./spec/features/user_show_spec.rb[1:8]  | failed | 0.08454 seconds |
