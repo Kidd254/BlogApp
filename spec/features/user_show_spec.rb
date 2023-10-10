@@ -1,5 +1,5 @@
 # spec/features/user_show_spec.rb
-
+# rubocop:disable Metrics/BlockLength
 require 'rails_helper'
 
 RSpec.feature 'User Show Page', type: :feature do
@@ -45,3 +45,4 @@ RSpec.feature 'User Show Page', type: :feature do
     expect(page).to have_current_path(user_posts_path(@user))
   end
 end
+# rubocop:enable Metrics/BlockLength

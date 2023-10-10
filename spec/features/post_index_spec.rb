@@ -12,7 +12,7 @@ RSpec.feature 'PostIndices', type: :feature do
 
     expect(page).to have_selector('img.profile-picture')
     expect(page).to have_content(@user.username)
-    expect(page).to have_content('Number of Posts: #{Post.where(user: @user).count}')
+    expect(page).to have_content("Number of Posts: #{Post.where(user: @user).count}")
   end
 
   scenario 'Viewing Post Titles, Bodies, Comments, Likes' do
@@ -52,8 +52,7 @@ RSpec.feature 'PostIndices', type: :feature do
     create(:comment, user: user, post: post1, text: 'Comment 2')
     create(:like, user: user, post: post1)
     create(:like, user: user, post: post2)
-    # rubocop:enaable Style/HashSyntax
+    # rubocop:enable Style/HashSyntax
   end
-
 end
 # rubocop:enable Metrics/BlockLength

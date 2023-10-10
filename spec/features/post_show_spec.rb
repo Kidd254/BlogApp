@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-# rubocop:disable Metrics/BlockLength
 RSpec.describe 'Post Show Page', type: :feature do
   before(:each) do
     @user = create(:user, name: 'John Doe')
@@ -31,4 +30,3 @@ RSpec.describe 'Post Show Page', type: :feature do
     expect(page).to have_content('Comment Text')
   end
 end
-# rubocop:enable Metrics/BlockLength
