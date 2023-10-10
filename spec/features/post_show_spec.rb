@@ -1,44 +1,34 @@
-# spec/features/post_show_spec.rb
 require 'rails_helper'
 
-RSpec.feature "Post Show Page", type: :feature do
-  before do
-    # Create a user and associated data (posts, comments, likes) for testing
-    @user = create(:user)
+# rubocop:disable Metrics/BlockLength
+RSpec.describe 'Post Show Page', type: :feature do
+  before(:each) do
+    @user = create(:user, name: 'John Doe')
+
     @post = create(:post, author: @user)
-    create_comments_and_likes(@post, @user)
+
+    create(:like, post: @post)
+
+    create_list(:comment, 2, user: @user, post: @post, user_name: 'Commenter', text: 'Comment Text')
+
+    visit post_path(@post)
   end
 
-  scenario "Viewing Post Details" do
-    visit user_post_path(@post.author, @post)
-
-    # Expectations for Post Details
+  it 'displays Post Details' do
     expect(page).to have_content(@post.title)
-    expect(page).to have_content("Author: #{@user.name}")
-    expect(page).to have_content("Likes: 2") # Assuming there are two likes
-    expect(page).to have_content("Comments: 3") # Assuming there are three comments
-    expect(page).to have_content(@post.text)
+    expect(page).to have_content('Author: John Doe')
+    expect(page).to have_content('Likes: 1')
+    expect(page).to have_content('Comments: 2')
+    expect(page).to have_content("Title: #{@post.title}")
+    expect(page).to have_content("Text: #{@post.text}")
   end
 
-  scenario "Viewing Comments" do
-    visit user_post_path(@post.author, @post)
-
-    # Expectations for Comments
-    expect(page).to have_css('h3', text: 'Comments')
-
-    within('ul') do
-      # Assuming there are three comments created in the before block
-      expect(page).to have_selector('li', count: 3)
-      expect(page).to have_content('Username:')
-      expect(page).to have_content('Comment Text 1')
-      expect(page).to have_content('Comment Text 2')
-      expect(page).to have_content('Comment Text 3')
-    end
+  it 'displays Comments' do
+    expect(page).to have_selector('li.comment', count: 2)
+    expect(page).to have_content('Username: John Doe')
+    expect(page).to have_content('Comment Text')
+    expect(page).to have_content('Username: Commenter')
+    expect(page).to have_content('Comment Text')
   end
 end
-
-# Define the 'create_comments_and_likes' method to create comments and likes for a post
-def create_comments_and_likes(post, user)
-  create(:like, user: user, post: post)
-  create_list(:comment, 2, user: user, post: post, text: 'Comment Text')
-end
+# rubocop:enable Metrics/BlockLength

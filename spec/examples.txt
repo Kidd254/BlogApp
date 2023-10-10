@@ -4,8 +4,8 @@ example_id                              | status | run_time        |
 ./spec/features/post_index_spec.rb[1:2] | failed | 0.00477 seconds |
 ./spec/features/post_index_spec.rb[1:3] | failed | 1.2 seconds     |
 ./spec/features/post_index_spec.rb[1:4] | failed | 0.00681 seconds |
-./spec/features/post_show_spec.rb[1:1]  | failed | 0.17929 seconds |
-./spec/features/post_show_spec.rb[1:2]  | failed | 0.00705 seconds |
+./spec/features/post_show_spec.rb[1:1]  | failed | 0.04315 seconds |
+./spec/features/post_show_spec.rb[1:2]  | failed | 1.38 seconds    |
 ./spec/features/user_index_spec.rb[1:1] | passed | 0.0386 seconds  |
 ./spec/features/user_index_spec.rb[1:2] | passed | 46.24 seconds   |
 ./spec/features/user_index_spec.rb[1:3] | passed | 0.04072 seconds |

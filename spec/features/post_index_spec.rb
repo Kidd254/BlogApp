@@ -1,6 +1,7 @@
 require 'rails_helper'
 
-RSpec.feature "PostIndices", type: :feature do
+# rubocop:disable Metrics/BlockLength
+RSpec.feature 'PostIndices', type: :feature do
   before do
     @user = create(:user)
     create_posts_and_data(@user)
@@ -11,7 +12,7 @@ RSpec.feature "PostIndices", type: :feature do
 
     expect(page).to have_selector('img.profile-picture')
     expect(page).to have_content(@user.username)
-    expect(page).to have_content("Number of Posts: #{Post.where(user: @user).count}")
+    expect(page).to have_content('Number of Posts: #{Post.where(user: @user).count}')
   end
 
   scenario 'Viewing Post Titles, Bodies, Comments, Likes' do
@@ -43,6 +44,7 @@ RSpec.feature "PostIndices", type: :feature do
   end
 
   def create_posts_and_data(user)
+    # rubocop:disable Style/HashSyntax
     post1 = create(:post, user: user, title: 'Post Title 1', body: 'Post Body 1')
     post2 = create(:post, user: user, title: 'Post Title 2', body: 'Post Body 2')
 
@@ -50,5 +52,8 @@ RSpec.feature "PostIndices", type: :feature do
     create(:comment, user: user, post: post1, text: 'Comment 2')
     create(:like, user: user, post: post1)
     create(:like, user: user, post: post2)
+    # rubocop:enaable Style/HashSyntax
   end
+
 end
+# rubocop:enable Metrics/BlockLength

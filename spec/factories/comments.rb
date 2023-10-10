@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :comment do
-    user
-    post
+    association :user
+    association :post
+    text { 'Comment Text' }
   end
 end
