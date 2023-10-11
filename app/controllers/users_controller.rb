@@ -1,18 +1,10 @@
 class UsersController < ApplicationController
-  include ApplicationHelper
-
   def index
     @users = User.all
   end
 
   def show
-    @user = User.find_by(name: params[:name])
-
-    if @user.nil?
-      flash[:error] = 'User not found'
-      redirect_to users_path
-    else
-      @posts = @user.posts.includes(:comments, :likes).order(created_at: :desc)
-    end
+    @user = User.find(params[:id])
+    @three_most_recent_posts = @user.posts.order(created_at: :desc).limit(3)
   end
 end

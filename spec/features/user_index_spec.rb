@@ -1,32 +1,40 @@
-# spec/features/user_integration_spec.rb
-
 require 'rails_helper'
 
-RSpec.feature 'User Integration', type: :feature do
+RSpec.describe 'PostIndexCommentsAndNavigation', type: :feature do
   before(:each) do
-    # Assuming you have users and posts set up for testing
-    @user = create(:user)
-    create(:post, user: @user)
-    visit users_path
+    puts "Current User IDs: #{User.pluck(:id).inspect}"
   end
 
-  scenario 'I can see the username of all other users' do
-    # Check if user's name is visible on the page
-    expect(page).to have_content(@user.name)
+  let!(:user) { create(:user, id: 1) }
+
+  let!(:posts) do
+    create_list(:post, 5, author: user).each do |post|
+      create_list(:comment, 3, post:, author: user)
+    end
   end
 
-  scenario 'I can see the profile picture for each user' do
-    # Check if user's profile picture is visible on the page
-    expect(page).to have_css('img.card-img-top')
-  end
+  context 'Post Comments and Likes' do
+    it 'shows the first comments on a post' do
+      visit user_posts_path(user.id)
 
-  scenario 'I can see the number of posts each user has written' do
-    # Assuming you have a method to display the post count
-    expect(page).to have_content('Number of comments:') # Adjust as per your setup
-  end
+      puts "First post's ID: #{posts.first.id}"
 
-  scenario "When I click on a user, I am redirected to that user's show page" do
-    find('.user-profile-link', match: :first).click
-    expect(page).to have_current_path(user_path(@user))
+      post = posts.first
+      within(:css, "#post-#{post.id} + .user-card") do
+        first_comment = post.five_most_recent_comments.first
+        expect(page).to have_content(first_comment.text)
+      end
+    end
+
+    it 'shows the number of comments a post has' do
+      visit user_posts_path(user.id)
+
+      puts "First post's ID: #{posts.first.id}"
+
+      within("#post-#{posts.first.id}") do
+        correct_count = posts.first.five_most_recent_comments.count
+        expect(page).to have_content("Comments: #{correct_count}")
+      end
+    end
   end
 end

@@ -1,24 +1,21 @@
 class LikesController < ApplicationController
-  before_action :find_post, only: :create
+  before_action :find_post
 
   def create
-    like = @post.likes.create(user: current_user)
+    @like = Like.new(user: current_user, post: @post)
 
-    if like.persisted?
-      flash[:notice] = 'Liked the post!'
+    if @like.save
+      flash.now[:notice] = 'Liked the post!'
+      redirect_to user_post_path(@user, @post)
     else
-      flash[:alert] = 'Unable to like the post.'
+      flash.now[:alert] = 'Failed to like the post!'
     end
-
-    redirect_to user_post_path(@post.author, @post) # Use user_post_path with the author and post as arguments
   end
 
   private
 
   def find_post
-    @post = Post.find(params[:post_id])
-  rescue ActiveRecord::RecordNotFound
-    flash[:alert] = 'Post not found.'
-    redirect_to root_path
+    @user = User.find(params[:user_id])
+    @post = @user.posts.find(params[:post_id])
   end
 end
