@@ -29,7 +29,6 @@ RSpec.feature 'PostIndices', type: :feature do
   scenario 'Viewing First Comments on a Post' do
     visit user_posts_path(@user.username)
 
-
     expect(page).to have_content('Comment 1')
     expect(page).to have_content('Comment 2')
   end
