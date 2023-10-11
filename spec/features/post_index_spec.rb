@@ -55,4 +55,5 @@ RSpec.feature 'PostIndices', type: :feature do
     # rubocop:enable Style/HashSyntax
   end
 end
+
 # rubocop:enable Metrics/BlockLength
