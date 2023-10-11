@@ -5,7 +5,7 @@
   </div>
   <div class="user-info border">
     <h2><%= @user.name %></h2>
-    <p class="posts-number">Number of posts: <%= @user.posts.count %></p>
+    <p class="posts-number">Number of posts: <%= @user.posts_counter %></p>
   </div>
 </div>
 <div class="user-card left">
@@ -19,10 +19,10 @@
       <li class="user-card left">
         <h3><%= link_to post.title, user_post_path(@user, post) %></h3>
         <br>
-        <p><%= post.content %></p>
+        <p><%= post.text %></p>
         <div class="right">
-          <span class="span-post">Comments: <%= post.comments.count %></span>
-          <span class="span-post" data-target="likes_count">Likes: <%= post.likes.count %></span>
+          <span class="span-post">Comments: <%= post.comments_counter %></span>
+          <span class="span-post" data-target="likes_count">Likes: <%= post.likes_counter %></span>
         </div>
       </li>
     <% end %>
