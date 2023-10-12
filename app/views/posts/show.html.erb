@@ -1,44 +1,32 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Post Details</title>
-</head>
-<body>
-  <h1>Post Details</h1>
-  
-  <h2><%= @post.title %></h2>
-  <p><strong>Author:</strong> <%= @post.author.name %></p>
-  <p><strong>Likes:</strong> <%= @post.likes.count %></p>
-  <p><strong>Comments:</strong> <%= @post.comments.count %></p>
-
-  <p><strong>Title:</strong> <%= @post.title %></p>
-  <p><strong>Text:</strong> <%= @post.text %></p>
-
-  <!-- Like button form -->
-  <%= form_with(model: @like, url: user_post_likes_path(@post.author, @post), method: :post) do |form| %>
-    <%= form.submit 'Like' %>
-  <% end %>
-  <h3>Comments</h3>
-   <!-- Comment form -->
-  <%= form_with(model: Comment.new, url: user_post_comments_path(@post.author, @post), method: :post) do |form| %>
-    <div class="field mb-2">
-      <%= form.text_area :text, rows: 3 %>
+<h2>Total Comments</h2>
+<div>
+  <div class="user-card left">
+    <h3><%= @post.title %> by <%= @user.name %></h3>
+    <div class="right">
+      <span class="span-post">Comments: <%= @post.comments.count %></span>
+      <span class="span-post" data-target="likes_count">Likes: <%= @post.likes.count %></span>
+      <%= button_to "Like", user_post_likes_path(@user, @post), method: :post, class: "button", remote: true %>
     </div>
-    <div class="field col-md-3">
-    <%= form.label :user_name %>
-    <%= form.text_field :user_name %>
+    <br>
+    <p><%= @post.content %></p>
   </div>
-    <%= form.submit 'Add Comment' %>
-  <% end %>
-  <ul>
-    <% @post.comments.each do |comment| %>
-      <li>
-        <p><strong>Username:</strong> <%= comment.user.name %></p>
-        <%= comment.text %>
-      </li>
-    <% end %>
-  </ul>
+  <div class="user-card left">
+    <ul>
+      <h5>All the Comments:</h5>
+      <br>
+      <% @post.comments.each do |comment| %>
+        <li><%= comment.author.name %>: <%= comment.text %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
 
-  
-</body>
-</html>
+<%= link_to 'New Comment', new_user_post_comment_path(@user, @post), class: 'button top' %>
+
+<% if @prev_post.present? %>
+  <%= button_to "Previous Post", user_post_path(@user, @prev_post), method: :get, class: "button top" %>
+<% end %>
+
+<% if @next_post.present? %>
+  <%= button_to "Next Post", user_post_path(@user, @next_post), method: :get, class: "button top" %>
+<% end %>

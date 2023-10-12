@@ -3,37 +3,42 @@ require 'rails_helper'
 RSpec.describe 'Users', type: :request do
   describe 'GET /users' do
     it 'returns a successful response' do
-      get '/users'
+      get users_path
       expect(response).to have_http_status(200)
     end
 
-    it 'renders the correct template' do
-      get '/users'
-      expect(response).to render_template('users/index')
+    it 'renders the index template' do
+      get users_path
+      expect(response).to render_template(:index)
     end
 
-    it 'includes correct placeholder text in the response body' do
-      get '/users'
-      expect(response.body).to include('All Users') # Update to match your actual text
+    it 'displays the correct placeholder text in the response body' do
+      get users_path
+      expect(response.body).to include('All Users')
     end
+
+    # Agregar más pruebas según las acciones de UsersController que tengas.
   end
 
-  describe 'GET /users/:name' do
-    let(:user) { create(:user, name: 'ValidUsername') } # Replace 'ValidUsername' with an actual valid username
-
+  describe 'GET /users/:id' do
     it 'returns a successful response' do
-      get "/users/#{user.name}"
+      user = FactoryBot.create(:user, name: 'Test User')
+      get user_path(user)
       expect(response).to have_http_status(200)
     end
 
-    it 'renders the correct template' do
-      get "/users/#{user.name}"
-      expect(response).to render_template('users/show')
+    it 'renders the show template' do
+      user = FactoryBot.create(:user, name: 'Test User')
+      get user_path(user)
+      expect(response).to render_template(:show)
     end
 
-    it 'includes correct placeholder text in the response body' do
-      get "/users/#{user.name}"
-      expect(response.body).to include('User Profile') # Update to match your actual text
+    it 'displays the correct placeholder text in the response body' do
+      user = FactoryBot.create(:user, name: 'Test User')
+      get user_path(user)
+      expect(response.body).to include('User Information')
     end
+
+    # Agregar más pruebas según las acciones de UsersController que tengas.
   end
 end

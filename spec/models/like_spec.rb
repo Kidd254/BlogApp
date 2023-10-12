@@ -1,18 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe Like, type: :model do
-  it 'is valid with valid attributes' do
-    like = FactoryBot.build(:like)
-    expect(like).to be_valid
+  let(:user) { create(:user) }
+  let(:post) { create(:post, author: user) }
+
+  describe 'Associations' do
+    it { should belong_to(:user) }
+    it { should belong_to(:post) }
   end
 
-  it 'is not valid without a user' do
-    like = FactoryBot.build(:like, user: nil)
-    expect(like).not_to be_valid
-  end
+  describe '#update_likes_counter' do
+    it 'updates the post\'s likes_counter' do
+      create(:like, post:, user:)
 
-  it 'is not valid without a post' do
-    like = FactoryBot.build(:like, post: nil)
-    expect(like).not_to be_valid
+      expect { create(:like, post:, user:) }.to change { post.reload.likes_counter }.by(1)
+    end
   end
 end

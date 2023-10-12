@@ -8,12 +8,10 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
   </head>
 
-  <body>
-  <div class="container justify-content-center align-items-center">
-
+  <body class="container center">
     <%= yield %>
-    </div>
   </body>
 </html>

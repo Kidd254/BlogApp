@@ -1,20 +1,25 @@
 Rails.application.routes.draw do
-  root 'users#index'
+   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+   root 'users#index'
+   # Defines the root path route ("/")
+   get '/users', to: 'users#index'
+ 
+   # root "articles#index"
+   get '/users/:id', to: 'users#show', as: 'user'
+ 
+   
+   get '/users/:user_id/posts/new', to: 'posts#new', as: 'new_user_post'
+   post '/users/:user_id/posts', to: 'posts#create', as: 'user_posts_create'
+ 
+   get '/users/:user_id/posts/:post_id/comments/new', to: 'comments#new', as: 'new_user_post_comment'
+   post '/users/:user_id/posts/:post_id/comments', to: 'comments#create', as: 'user_post_comments'
+ 
 
-  resources :users, param: :name, only: [:index, :show] do
-    resources :posts, only: [:index, :show, :new, :create] do
-      resources :comments, only: [:create, :update, :destroy]
-
-      # Add routes for liking and unliking a post
-      post 'like', to: 'likes#create'
-      delete 'unlike', to: 'likes#destroy'
-
-      # Define the post route within the posts resources block
-      get 'posts/:id', to: 'posts#show', on: :member, as: 'post'
-      resources :likes, only: [:create, :destroy]
-    end
-  end
+   post '/user/:user_id/posts/:post_id/likes', to: 'likes#create', as: 'user_post_likes'
+ 
+   get '/user/:user_id/posts', to: 'posts#index', as: 'user_posts'
+ 
+   get '/user/:user_id/posts/:id', to: 'posts#show', as: 'user_post'
+ 
+   resources :posts, only: [:show]
 end
-
-
-

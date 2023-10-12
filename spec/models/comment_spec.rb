@@ -1,13 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
-  it 'is not valid without a user' do
-    comment = FactoryBot.build(:comment, user: nil)
-    expect(comment).to_not be_valid
+  let(:user) { create(:user) }
+  let(:post) { create(:post, author: user) }
+
+  describe 'Associations' do
+    it { should belong_to(:author).class_name('User').with_foreign_key('author_id') }
+    it { should belong_to(:post) }
   end
 
-  it 'is not valid without a post' do
-    comment = FactoryBot.build(:comment, post: nil)
-    expect(comment).to_not be_valid
+  describe '#update_comments_counter' do
+    it 'updates the post\'s comments_counter' do
+      create(:comment, post:, author: user)
+
+      expect { create(:comment, post:, author: user) }.to change { post.reload.comments_counter }.by(1)
+    end
   end
 end

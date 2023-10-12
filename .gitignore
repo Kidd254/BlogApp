@@ -29,4 +29,18 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-node_modules
+
+# misc
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# .env file
+.env
+
+# secrets.yml file
+config/secrets.yml
+
+# Ignore byebug command history file.
+.DS_Store

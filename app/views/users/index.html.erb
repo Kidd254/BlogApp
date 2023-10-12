@@ -1,53 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>All Users</title>
-  <!-- Include Bootstrap CSS -->
-  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-</head>
-<body>
-  <div class="container mt-4">
-    <!-- Iterate through users and display them in separate columns within a row -->
-    <div class="row">
-      <% @users.each do |user| %>
-        <div class="col-md-12 mb-4">
-          <!-- User details go here -->
-          <div class="row">
-            <div class='col-md-2'>
-              <!-- User's photo with its own border -->
-              <div class="border">
-                <% if user.photo.present? && user.photo =~ URI::DEFAULT_PARSER.regexp[:ABS_URI] %>
-                  <img src="<%= user.photo %>" alt="<%= 'User' %>" class="card-img-top">
-                <% else %>
-                  <!-- Display a default image if no valid photo URL is available -->
-                  <img src="/default-user-photo.jpg" alt="Default User Photo" class="card-img-top h-200 w-100">
-                <% end %>
-              </div>
-            </div>
-            <div class="col-md-8 ml-3">
-              <!-- Name and number of comments within a single border -->
-              <div class="border border-dark p-4 d-flex align-items-center">
-                <div class="col-md-5">
-                  <h2 class="card-title">
-                    <% if user.name.present? %>
-                      <%= link_to user.name, user_path(user.name) %>
-                    <% else %>
-                      User name not available
-                    <% end %>
-                  </h2>
-                </div>
-                <div class="col-md-5">
-                  <p class="card-text ml-3">
-                    Number of comments: <%= user.comments.count %>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</body>
-</html>
-
+<h1 class="index-title">All Users</h1>
+<ul class="user-list">
+  <% @users.each do |user| %>
+    <li class="user-card flex" id="user-card-<%= user.id %>">
+      <div class="user-image border">
+        <img src="<%= user.photo %>" alt="<%= user.name %>'s photo" width="100% heigth="100%">
+      </div>
+      <div class="user-info border">
+        <h2><%= link_to user.name, user_path(user) %></h2>
+        <p class="posts-number">Number of posts: <%= user.posts.count %></p>
+      </div>
+    </li>
+  <% end %>
+</ul>

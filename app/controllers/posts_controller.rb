@@ -1,59 +1,37 @@
 class PostsController < ApplicationController
+  before_action :find_user
+
   def index
-    @users = User.all
-    @posts = Post.all
-  end
-
-  def show
-    @post = Post.find(params[:id])
-    @new_post = Post.new
-  end
-
-  def new
-    @user = current_user
-    @post = @user.posts.new
+    @posts = @user.posts.includes(:comments, :likes).page(params[:page]).per(3)
   end
 
   def create
-    new_post = current_user.posts.new(post_params)
-    if new_post.save
-      flash[:success] = 'The Post was created successfully!'
-      redirect_to user_post_path(current_user, new_post)
+    @post = @user.posts.build(post_params)
+    if @post.save
+      redirect_to user_post_path(@user, @post), notice: 'Post was successfully created.'
     else
-      # Include new_post with errors
-      @new_post = new_post
-      render 'new'
+      flash.now[:alert] = 'Post creation failed!'
+      render :new
     end
   end
 
-  def addlike
-    @post = find_post_by_id
-    Like.create(post: @post, author: current_user) unless like_exists?(@post, current_user)
-    redirect_to user_post_path(@post.author, @post)
+  def show
+    @post = @user.posts.find(params[:id])
+    @next_post = @user.posts.where('id > ?', @post.id).first
+    @prev_post = @user.posts.where('id < ?', @post.id).last
   end
 
-  def deletelike
-    @post = find_post_by_id
-    @post.likes.destroy_by(author: current_user) if like_exists?(@post, current_user)
-    redirect_to user_post_path(@post.author, @post)
+  def new
+    @post = @user.posts.build
   end
 
   private
 
+  def find_user
+    @user = User.find(params[:user_id])
+  end
+
   def post_params
-    params.require(:post).permit(:title, :text)
-  end
-
-  def find_user_by_id
-    User.find(params[:user_id])
-  end
-
-  def find_post_by_id
-    Post.find(params[:id])
-  end
-
-  def like_exists?(post, user)
-    @like = post.likes.where(author: user)
-    @like.exists?
+    params.require(:post).permit(:title, :content)
   end
 end

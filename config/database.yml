@@ -9,7 +9,7 @@ development:
   username: kidd
   password: eunbeb
   host: localhost
-  port: 5432 
+  port: 5432
 
 test:
   <<: *default
@@ -17,7 +17,7 @@ test:
   username: kidd
   password: eunbeb
   host: localhost
-  port: 5432 
+  port: 5432
 
 production:
   <<: *default
@@ -25,4 +25,4 @@ production:
   username: kidd
   password: <%= ENV["DATABASE_PASSWORD"] %>
   host: localhost
-  port: 5432 
+  port: 5432
