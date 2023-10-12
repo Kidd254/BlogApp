@@ -5,7 +5,7 @@ ruby '3.2.2'
 
 gem 'rubocop', '>= 1.0', '< 2.0'
 
-gem 'kaminari', '1.2.1'
+gem 'kaminari'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.8'
