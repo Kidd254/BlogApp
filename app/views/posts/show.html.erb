@@ -8,7 +8,7 @@
       <%= button_to "Like", user_post_likes_path(@user, @post), method: :post, class: "button", remote: true %>
     </div>
     <br>
-    <p><%= @post.content %></p>
+    <p><%= @post.text %></p>
   </div>
   <div class="user-card left">
     <ul>

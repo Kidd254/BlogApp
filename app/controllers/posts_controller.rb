@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_user
-
   def index
     @posts = @user.posts.includes(:comments, :likes).page(params[:page]).per(3)
   end
@@ -10,6 +10,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to user_post_path(@user, @post), notice: 'Post was successfully created.'
     else
+      puts @post.errors.full_messages
       flash.now[:alert] = 'Post creation failed!'
       render :new
     end
@@ -32,6 +33,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content)
+    params.require(:post).permit(:title, :text)
   end
 end
