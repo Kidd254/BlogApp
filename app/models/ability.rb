@@ -1,15 +1,12 @@
-# frozen_string_literal: true
-
 class Ability
   include CanCan::Ability
 
   def initialize(user)
-    
     if user.admin?
       can :manage, Post
       can :manage, Comment
     else
-      
+
       can :read, :all
       can :create, Post, author_id: user.id
       can :create, Comment
