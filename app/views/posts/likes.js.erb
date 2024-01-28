@@ -1,0 +1,11 @@
+$(document).ready(function() {
+  $('#like-button').on('ajax:success', function(event) {
+    var data = event.detail[0];
+    if (data.liked) {
+      $('#like-button').text('Unlike');
+    } else {
+      $('#like-button').text('Like');
+    }
+    $('#like-count').text(data.like_count + ' Likes');
+  });
+});

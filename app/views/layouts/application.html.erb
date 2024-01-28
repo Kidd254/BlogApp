@@ -5,24 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+<%= yield :stylesheets %>
+
     <%= javascript_importmap_tags %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   </head>
   
   <body class="container center">
     <header>
       <nav>
-<ul>
-  <% if user_signed_in? %>
-    <li><%= link_to 'Home', root_path %></li>
-    <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
-  <% else %>
-    <li><%= link_to 'Home', root_path %></li>
-    <li><%= link_to 'Log In', new_user_session_path %></li>
-    <li><%= link_to 'Sign Up', new_user_registration_path %></li>
-  <% end %>
-</ul>
-
+        <ul class="list-inline d-flex">
+          <% if user_signed_in? %>
+            <li class="list-inline-item flex-grow-1">
+              <%= link_to '<i class="fa-solid fa-house fa-fade"></i> Home'.html_safe, root_path, class: 'text-decoration-none' %>
+            </li>
+            <li class="list-inline-item"><%= link_to 'Log Out <i class="fa-solid fa-right-from-bracket fa-fade"></i>'.html_safe, destroy_user_session_path, method: :delete, class: 'text-decoration-none' %></li>
+          <% else %>
+          <% end %>
+        </ul>
       </nav>
     </header>
     
