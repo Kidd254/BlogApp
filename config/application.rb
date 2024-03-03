@@ -13,6 +13,7 @@ module BlogApp
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
+config.assets.initialize_on_precompile = false
     # Configuration for the application, engines, and railties goes here.
     config.session_store :cookie_store, key: '_blog_app_session'
     # These settings can be overridden in specific environments using the files
